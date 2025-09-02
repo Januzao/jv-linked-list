@@ -79,7 +79,7 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
 
         Node<T> current = getNode(index);
 
-        extracted(current);
+        unlink(current);
 
         size--;
         return current.element;
@@ -93,7 +93,7 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
             if (object != null && object.equals(current.element)
                     || (object == null && current.element == null)) {
 
-                extracted(current);
+                unlink(current);
 
                 size--;
                 return true;
@@ -114,18 +114,6 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
         return size == 0;
     }
 
-    private static class Node<E> {
-        private E element;
-        private Node<E> next;
-        private Node<E> prev;
-
-        public Node(Node<E> prev, E element, Node<E> next) {
-            this.prev = prev;
-            this.element = element;
-            this.next = next;
-        }
-    }
-
     private Node<T> getNode(int index) {
         Node<T> current;
 
@@ -144,7 +132,7 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
         return current;
     }
 
-    private void extracted(Node<T> current) {
+    private void unlink(Node<T> current) {
         if (current.prev != null) {
             current.prev.next = current.next;
         } else {
@@ -169,5 +157,18 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
             throw new IndexOutOfBoundsException("Index: " + index + ", size: " + size);
         }
     }
+
+    private static class Node<E> {
+        private E element;
+        private Node<E> next;
+        private Node<E> prev;
+
+        public Node(Node<E> prev, E element, Node<E> next) {
+            this.prev = prev;
+            this.element = element;
+            this.next = next;
+        }
+    }
+
 }
 
